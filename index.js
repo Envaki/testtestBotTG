@@ -12,11 +12,11 @@ bot.command('start', ctx => {
             inline_keyboard: [
                 [
                     {text:'\u{2139}Про нас', callback_data: 'about'},
-                    {text:' \u{260E}  Сайт', parse_mod:"HTML", callback_data: 'sait'}  
+                    {text: 'sait', url: 'envaki.github.io'}  
                 ],
                 [
                     {text:'\u{1F404}Контакти', callback_data: 'contacts'},
-                    {text:'\u{1F4DD} Запис на прийом', callback_data: 'zapus'}  
+                    {text:'\u{1F4DD} Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'}  
                 ],
                 [
                     {text:'\u{1F608}Просто кнопка', callback_data: 'button'}
@@ -83,11 +83,11 @@ bot.action('menu', async ctx => {
                 inline_keyboard: [
                     [
                         {text:'\u{2139}Про нас', callback_data: 'about'},
-                        {text:' \u{260E}  Сайт', callback_data: 'sait'}  
+                        {text: 'sait', url: 'envaki.github.io'}  
                     ],
                     [
                         {text:'\u{1F404}Контакти', callback_data: 'contacts'},
-                        {text:'\u{1F4DD} Запис на прийом', callback_data: 'zapus'}  
+                        {text:'\u{1F4DD} Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'}  
                     ],
                     [
                         {text:'\u{1F608}Просто кнопка', callback_data: 'button'}
