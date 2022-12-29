@@ -1,22 +1,24 @@
 const { Telegraf, Markup } = require('telegraf');
 require('dotenv').config()
+
 const text = require('./const');
 
 const bot = new Telegraf('5869058937:AAH3kWPtduDnGYMHn6seheAUA4byi1UvWm4');
-// const bot = new Telegraf(process.env.BOT_TOKEN);
 
-bot.command('start', ctx => {
-   bot.telegram.sendMessage(ctx.chat.id, '\u{1F3E3}Головне меню',
-    { 
+bot.command('start', async ctx => {
+    await ctx.reply('Вас вітає бот ЦПМСД Житомира');
+   await bot.telegram.reply(ctx.chat.id, '\u{1F3E3}Головне меню',
+    {
+        parse_mode: 'html', 
         reply_markup: {
-            inline_keyboard: [
-                [
-                    {text:'\u{2139}Про нас', callback_data: 'about'},
-                    {text: 'sait', url: 'envaki.github.io'}  
+            keyboard: [
+               [
+                    {text:'\u{2139}   Про нас', callback_data: 'about'},
+                    {text:' \u{260E}  Сайт', url: 'envaki.github.io'}  
                 ],
                 [
-                    {text:'\u{1F404}Контакти', callback_data: 'contacts'},
-                    {text:'\u{1F4DD} Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'}  
+                    {text:'\u{1F404}  Контакти', callback_data: 'contacts'},
+                    {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'}  
                 ],
                 [
                     {text:'\u{1F608}Просто кнопка', callback_data: 'button'}
@@ -25,6 +27,25 @@ bot.command('start', ctx => {
         }
     })
 })
+bot.on('message', ctx => {
+    ctx.reply('я тебе не розумію, скористайся меню \u{1F61F}', {
+        reply_markup: {
+            keyboard: [
+                [
+                    {text:'\u{2139}   Про нас', callback_data: 'about'},
+                    {text:' \u{260E}  Сайт', url: 'envaki.github.io'}  
+                ],
+                [
+                    {text:'\u{1F404}  Контакти', callback_data: 'contacts'},
+                    {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'}  
+                ],
+                [
+                    {text:'\u{1F608}Просто кнопка', callback_data: 'button'}
+                ]
+            ]
+        }
+    })
+});
 
 function btnAdder(name, text) {
     bot.action(name, async(ctx)=> {
@@ -34,7 +55,7 @@ function btnAdder(name, text) {
             await  bot.telegram.sendMessage(ctx.chat.id, 'Повернутися',
             { 
                 reply_markup: {
-                    inline_keyboard: [
+                    keyboard: [
                         [
                             {text:'До головного меню', callback_data: 'menu'},
                         ]
@@ -63,7 +84,7 @@ bot.action('about', async ctx => {
     await bot.telegram.sendMessage(ctx.chat.id, 'Повернутися',
     { 
         reply_markup: {
-            inline_keyboard: [
+            keyboard: [
                 [
                     {text:'До головного меню', callback_data: 'menu'},
                 ]
@@ -80,18 +101,18 @@ bot.action('menu', async ctx => {
         await bot.telegram.sendMessage(ctx.chat.id, '\u{1F3E3}Головне меню',
         { 
             reply_markup: {
-                inline_keyboard: [
-                    [
-                        {text:'\u{2139}Про нас', callback_data: 'about'},
-                        {text: 'sait', url: 'envaki.github.io'}  
-                    ],
-                    [
-                        {text:'\u{1F404}Контакти', callback_data: 'contacts'},
-                        {text:'\u{1F4DD} Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'}  
-                    ],
-                    [
-                        {text:'\u{1F608}Просто кнопка', callback_data: 'button'}
-                    ]
+                keyboard: [
+                   [
+                    {text:'\u{2139}   Про нас', callback_data: 'about'},
+                    {text:' \u{260E}  Сайт', url: 'envaki.github.io'}  
+                ],
+                [
+                    {text:'\u{1F404}  Контакти', callback_data: 'contacts'},
+                    {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'}  
+                ],
+                [
+                    {text:'\u{1F608}Просто кнопка', callback_data: 'button'}
+                ]
                 ]
             }
     })
@@ -99,57 +120,6 @@ bot.action('menu', async ctx => {
         console.error(e)
     }
 })
-
-
-
-/*
-bot.start((ctx) => ctx.replyWithHTML('Вас вітає БОТ Житомирського ЦПМСД', Markup.inlineKeyboard([
-    [Markup.button.callback('Про нас', 'btn_1'), Markup.button.callback('Стікер', 'btn_2')],
-    [Markup.button.callback('Сайт', 'btn_3'), Markup.button.callback('Запис на прийом', 'btn_4')]
-]))
-);
-bot.command('info', (ctx) => ctx.reply('команди бота: /start'));
-bot.help((ctx) => ctx.reply(text.commands));
-
-bot.action('back',(ctx) => ctx.sendMessage('Вас вітає БОТ Житомирського ЦПМСД', Markup.inlineKeyboard([
-    [Markup.button.callback('Про нас', 'btn_1'), Markup.button.callback('Стікер', 'btn_2')],
-    [Markup.button.callback('Сайт', 'btn_3'), Markup.button.callback('Запис на прийом', 'btn_4')]
-])));
-function btnAdder(name, text) {
-    bot.action(name, async(ctx)=> {
-        try {
-            await ctx.answerCbQuery();
-            await  ctx.replyWithHTML(text)
-            await  bot.telegram.replyWithHTML(ctx.chat.id, {
-                reply_markup: {
-                    inline_keyboard: [
-                        {text:'Повернутись до меню', callback_data: 'back'}
-                    ]
-                }
-            })
-        } catch(e) {
-            console.error(e)
-        }
-    })
-}
-
-btnAdder('btn_1', text.onas)
-btnAdder('btn_3', text.text)
-btnAdder('btn_4', text.zapus)
-
-
-bot.action('btn_2', async(ctx)=> {
-    try {
-        await ctx.answerCbQuery();
-      await  ctx.reply('Send me a sticker')
-      await bot.on('sticker', (ctx) => ctx.reply('👍'));
-       disable_web_page_preview: true
-    } catch(e) {
-        console.error(e)
-    }
-})
-*/
-
 
 bot.launch();
 
