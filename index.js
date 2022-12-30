@@ -7,9 +7,8 @@ const bot = new Telegraf('5869058937:AAH3kWPtduDnGYMHn6seheAUA4byi1UvWm4');
 
 bot.command('start', async ctx => {
     await ctx.reply('Вас вітає бот ЦПМСД Житомира');
-   await bot.telegram.reply(ctx.chat.id, '\u{1F3E3}Головне меню',
+   await bot.telegram.sendMessage(ctx.chat.id, '\u{1F3E3}Головне меню',
     {
-        parse_mode: 'html', 
         reply_markup: {
             keyboard: [
                [
@@ -27,25 +26,38 @@ bot.command('start', async ctx => {
         }
     })
 })
-bot.on('message', ctx => {
-    ctx.reply('я тебе не розумію, скористайся меню \u{1F61F}', {
-        reply_markup: {
-            keyboard: [
-                [
-                    {text:'\u{2139}   Про нас', callback_data: 'about'},
-                    {text:' \u{260E}  Сайт', url: 'envaki.github.io'}  
-                ],
-                [
-                    {text:'\u{1F404}  Контакти', callback_data: 'contacts'},
-                    {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'}  
-                ],
-                [
-                    {text:'\u{1F608}Просто кнопка', callback_data: 'button'}
-                ]
+bot.hears('\u{2139}   Про нас', (ctx) => ctx.replyWithHTML(text.onas));
+
+bot.hears('\u{260E}  Сайт', (ctx) => ctx.reply('Посилання на наш сайт \u{2B07}',{
+    reply_markup: {
+        inline_keyboard: [
+           [
+                {text:'Сайт ЦПМСД', url: 'envaki.github.io'}  
             ]
-        }
-    })
-});
+        ]
+    }
+}
+));
+
+bot.on('message', async ctx => {
+        await ctx.reply('я тебе не розумію, скористайся меню \u{1F61F}', {
+            reply_markup: {
+                keyboard: [
+                    [
+                        {text:'\u{2139}   Про нас', callback_data: 'about'},
+                        {text:' \u{260E}  Сайт', url: 'envaki.github.io'}  
+                    ],
+                    [
+                        {text:'\u{1F404}  Контакти', callback_data: 'contacts'},
+                        {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'}  
+                    ],
+                    [
+                        {text:'\u{1F608}Просто кнопка', callback_data: 'button'}
+                    ]
+                ]
+            }
+        })
+    });
 
 function btnAdder(name, text) {
     bot.action(name, async(ctx)=> {
