@@ -12,7 +12,7 @@ bot.command('start', async ctx => {
         reply_markup: {
             keyboard: [
                [
-                    {text:'\u{2139}   Про нас', callback_data: 'about'},
+                    {text:'\u{2139}   Про нас'},
                     {text:' \u{260E}  Сайт', url: 'envaki.github.io'}  
                 ],
                 [
