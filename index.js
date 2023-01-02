@@ -17,7 +17,7 @@ bot.command('start', async ctx => {
                 ],
                 [
                     {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'},
-                    {text:'\u{1F3E5} Амбулаторії'}   
+                    {text:'\u{1F3E5} Опитування'}   
                 ],
                 [
                     {text:'\u{1F608}  Просто кнопка', callback_data: 'button'}
@@ -26,24 +26,7 @@ bot.command('start', async ctx => {
         }
     })
 })
-bot.hears('\u{1F3E5} Амбулаторії', (ctx) => ctx.reply('Введіть номер амбулаторії або введіть номер, наприклад: 1', {
-    reply_markup: {
-        keyboard: [
-           [
-                {text:'1'}, {text:'2'}, {text:'3'}, {text:'4'}, {text:'5'}, {text:'6'}, {text:'7'}, 
-            ], 
-            [
-                {text:'8'}, {text:'9'}, {text:'10'}, {text:'11'}, {text:'12'}, {text:'13'}, {text:'14'}, 
-            ],
-            [
-                {text:'16'}, {text:'17'}, {text:'18'}, {text:'19'}, {text:'20'}, {text:'21'}, 
-            ],
-            [
-                {text:'До головного меню', callback_data: 'menu'},
-            ]
-        ]
-    }
-}));
+bot.hears('\u{1F3E5} Опитування', (ctx) => ctx.reply('Тут буде опитування'));
 
 
 bot.hears('\u{2139}   Про нас', (ctx) => ctx.replyWithHTML(text.onas));
@@ -167,6 +150,10 @@ bot.action('about', async ctx => {
         console.error(e)
     }
 })
+// send email 
+
+
+
 
 bot.launch();
 
