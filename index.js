@@ -6,28 +6,61 @@ const text = require('./const');
 const bot = new Telegraf('5869058937:AAH3kWPtduDnGYMHn6seheAUA4byi1UvWm4');
 
 bot.command('start', async ctx => {
-    await ctx.reply('Вас вітає бот ЦПМСД Житомира');
-   await bot.telegram.sendMessage(ctx.chat.id, '\u{1F3E3}Головне меню',
+   await bot.telegram.sendMessage(ctx.chat.id, '\u{1F3E3}  Вас вітає бот ЦПМСД Житомира',
     {
         reply_markup: {
             keyboard: [
                [
                     {text:'\u{2139}   Про нас'},
-                    {text:' \u{260E}  Сайт', url: 'envaki.github.io'}  
+                    {text:' \u{260E}  Сайт', url: 'envaki.github.io'},
+                    {text:'\u{1F404}  Контакти', callback_data: 'contacts'} 
                 ],
                 [
-                    {text:'\u{1F404}  Контакти', callback_data: 'contacts'},
-                    {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'}  
+                    {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'},
+                    {text:'\u{1F3E5} Амбулаторії'}   
                 ],
                 [
-                    {text:'\u{1F608}Просто кнопка', callback_data: 'button'}
+                    {text:'\u{1F608}  Просто кнопка', callback_data: 'button'}
                 ]
             ]
         }
     })
 })
-bot.hears('\u{2139}   Про нас', (ctx) => ctx.replyWithHTML(text.onas));
+bot.hears('\u{1F3E5} Амбулаторії', (ctx) => ctx.reply('Введіть номер амбулаторії або введіть номер, наприклад: 1', {
+    reply_markup: {
+        keyboard: [
+           [
+                {text:'1'}, {text:'2'}, {text:'3'}, {text:'4'}, {text:'5'}, {text:'6'}, {text:'7'}, 
+            ], 
+            [
+                {text:'8'}, {text:'9'}, {text:'10'}, {text:'11'}, {text:'12'}, {text:'13'}, {text:'14'}, 
+            ],
+            [
+                {text:'16'}, {text:'17'}, {text:'18'}, {text:'19'}, {text:'20'}, {text:'21'}, 
+            ],
+            [
+                {text:'До головного меню', callback_data: 'menu'},
+            ]
+        ]
+    }
+}));
 
+
+bot.hears('\u{2139}   Про нас', (ctx) => ctx.replyWithHTML(text.onas));
+bot.hears('\u{1F404}  Контакти', (ctx) => ctx.replyWithHTML(text.contacts));
+bot.hears('\u{1F608}  Просто кнопка', (ctx) => ctx.replyWithHTML(text.button));
+bot.hears('\u{1F4DD}  Запис на прийом', (ctx) => ctx.replyWithHTML('Запис \u{2B07}',{
+    reply_markup: {
+        inline_keyboard: [
+           [
+                {text:'Запис на прийом', url: 'envaki.github.io'}  
+            ]
+        ]
+    }
+}));
+
+
+bot.hears('\u{1F3E5} Амбулаторії', (ctx) => ctx.replyWithHTML('Введіть номер амбулаторії, наприклад: 01'));
 bot.hears('\u{260E}  Сайт', (ctx) => ctx.reply('Посилання на наш сайт \u{2B07}',{
     reply_markup: {
         inline_keyboard: [
@@ -39,17 +72,44 @@ bot.hears('\u{260E}  Сайт', (ctx) => ctx.reply('Посилання на на
 }
 ));
 
+bot.hears('1',(ctx) => ctx.reply(text.amb[0]));
+bot.hears('До головного меню', async ctx => {
+    try {
+        await bot.telegram.sendMessage(ctx.chat.id, '\u{1F3E3}  Вас вітає бот ЦПМСД Житомира',
+        { 
+            reply_markup: {
+                keyboard: [
+                   [
+                        {text:'\u{2139}   Про нас'},
+                        {text:' \u{260E}  Сайт', url: 'envaki.github.io'},
+                        {text:'\u{1F404}  Контакти', callback_data: 'contacts'} 
+                    ],
+                    [
+                        {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'},
+                        {text:'\u{1F3E5} Амбулаторії'}   
+                    ],
+                    [
+                        {text:'\u{1F608}Просто кнопка', callback_data: 'button'}
+                    ]
+                ]
+            }
+    })
+    } catch (e) {
+        console.error(e)
+    }
+})
 bot.on('message', async ctx => {
         await ctx.reply('я тебе не розумію, скористайся меню \u{1F61F}', {
             reply_markup: {
                 keyboard: [
-                    [
-                        {text:'\u{2139}   Про нас', callback_data: 'about'},
-                        {text:' \u{260E}  Сайт', url: 'envaki.github.io'}  
+                   [
+                        {text:'\u{2139}   Про нас'},
+                        {text:' \u{260E}  Сайт', url: 'envaki.github.io'},
+                        {text:'\u{1F404}  Контакти', callback_data: 'contacts'} 
                     ],
                     [
-                        {text:'\u{1F404}  Контакти', callback_data: 'contacts'},
-                        {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'}  
+                        {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'},
+                        {text:'\u{1F3E5} Амбулаторії'}   
                     ],
                     [
                         {text:'\u{1F608}Просто кнопка', callback_data: 'button'}
@@ -103,31 +163,6 @@ bot.action('about', async ctx => {
             ]
         }
 })
-    } catch (e) {
-        console.error(e)
-    }
-})
-bot.action('menu', async ctx => {
-    try {
-        await ctx.deleteMessage();
-        await bot.telegram.sendMessage(ctx.chat.id, '\u{1F3E3}Головне меню',
-        { 
-            reply_markup: {
-                keyboard: [
-                   [
-                    {text:'\u{2139}   Про нас', callback_data: 'about'},
-                    {text:' \u{260E}  Сайт', url: 'envaki.github.io'}  
-                ],
-                [
-                    {text:'\u{1F404}  Контакти', callback_data: 'contacts'},
-                    {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'}  
-                ],
-                [
-                    {text:'\u{1F608}Просто кнопка', callback_data: 'button'}
-                ]
-                ]
-            }
-    })
     } catch (e) {
         console.error(e)
     }

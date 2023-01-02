@@ -25,6 +25,11 @@ const zapus = `
 const button = `
 <a href="https://www.youtube.com/watch?v=YrsJPTMMzss&ab_channel=KHARKIVToday">Ти кнопка</a> 
 `
+const amb = [
+    '1 амб','2 амб','3 амб','4 амб',
+]
+
+module.exports.amb = amb
 module.exports.commands = commands
 module.exports.sait = sait
 module.exports.onas = onas
