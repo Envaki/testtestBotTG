@@ -1,6 +1,11 @@
 const { Telegraf, Markup } = require('telegraf');
 require('dotenv').config()
 
+// google 
+
+
+// google end
+
 const text = require('./const');
 
 const bot = new Telegraf('5869058937:AAH3kWPtduDnGYMHn6seheAUA4byi1UvWm4');
