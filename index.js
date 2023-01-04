@@ -1,4 +1,4 @@
-const { Telegraf, Markup } = require('telegraf');
+const { Telegraf, Markup, Scenes, session } = require('telegraf');
 require('dotenv').config()
 
 const text = require('./const');
@@ -46,10 +46,22 @@ document.querySelector('#zakazform').addEventListener('submit', function (e) {
 })
 // google end
 */
+const stage = new Scenes.Stage([text.oputyvannya])
+
+bot.use(session())
+bot.use(stage.middleware())
+
+
+
+bot.hears('Опитування', ctx => ctx.scene.enter('oputyvannya'))
+
 bot.command('start', async ctx => {
-   await bot.telegram.sendMessage(ctx.chat.id, '\u{1F3E3}  Вас вітає бот ЦПМСД Житомира',
-    {
-        reply_markup: {
+   // await ctx.sendMessage(ctx.chat.id, '\u{1F3E3}  Вас вітає бот ЦПМСД Житомира')
+    await ctx.reply('\u{1F3E5} Cpmsd', Markup.keyboard(
+        [['\u{1F3E5} Про нас','Сайт','Контакти','Опитування']]
+    ).oneTime().resize()
+)
+      /*  reply_markup: {
             keyboard: [
                [
                     {text:'\u{2139}   Про нас'},
@@ -65,7 +77,7 @@ bot.command('start', async ctx => {
                 ]
             ]
         }
-    })
+    }) */
 })
 
 

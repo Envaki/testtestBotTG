@@ -25,11 +25,42 @@ const zapus = `
 const button = `
 <a href="https://www.youtube.com/watch?v=YrsJPTMMzss&ab_channel=KHARKIVToday">Ти кнопка</a> 
 `
-const amb = [
-    '1 амб','2 амб','3 амб','4 амб',
-]
 
-module.exports.amb = amb
+const {Markup, Composer, Scenes} = require('telegraf')
+
+const startStep = new Composer()
+startStep.on("text", async (ctx) => {
+    try {
+        ctx.wizard.state.data = {}
+        ctx.wizard.state.data.userName = ctx.message.from.username
+        ctx.wizard.state.data.firstName = ctx.message.from.first_name
+        ctx.wizard.state.data.lastName = ctx.message.from.last_name
+
+        await ctx.replyWithHTML('Задоволеність від 1 до 10')
+        return ctx.wizard.next()
+
+    } catch(e) {
+        console.log(e)
+    }
+})
+
+const titleStep = new Composer()
+titleStep.on("text", async (ctx) => {
+    try {
+        ctx.wizard.state.data.title = ctx.message.text
+
+        await ctx.replyWithHTML('Укажіть ваш вік')
+        return ctx.wizard.next()
+
+    } catch(e) {
+        console.log(e)
+    }
+})
+
+const oputyvannya = new Scenes.WizardScene('oputyvannya', startStep, titleStep)
+
+module.exports.oputyvannya = oputyvannya
+
 module.exports.commands = commands
 module.exports.sait = sait
 module.exports.onas = onas
