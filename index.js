@@ -1,15 +1,51 @@
 const { Telegraf, Markup } = require('telegraf');
 require('dotenv').config()
 
-// google 
-
-
-// google end
-
 const text = require('./const');
 
 const bot = new Telegraf('5869058937:AAH3kWPtduDnGYMHn6seheAUA4byi1UvWm4');
 
+// google 
+// const TOKEN = '5869058937:AAH3kWPtduDnGYMHn6seheAUA4byi1UvWm4';
+
+/*
+const CHAT_ID = '-1001893740855';
+const URI_API = `https://api.telegram.org/bot${bot}/sendMessage`;
+const success = document.querySelector('.success');
+const send = document.querySelector('#send');
+
+document.querySelector('#zakazform').addEventListener('submit', function (e) {
+    e.preventDefault();
+    
+    let message = '<b> Заявка з сайта</b> \n';
+
+    message += `<b> Замовник:</b> ${this.name.value}` + ' ' + `${this.lastname.value}\n`;
+    message += `<b> Email:</b> ${this.email.value} \n`;
+
+    axios.post(URI_API, {
+        chat_id: CHAT_ID,
+        parse_mode: 'html',
+        text: message
+    })
+    .then((res) => {
+        this.name.value = "";
+        this.lastname.value = "";
+        this.email.value = "";
+        this.select.value = "";
+        this.tel.value = "";
+        this.Message.value = "";
+        success.style.display = 'block';
+        send.style.display = 'none';
+    })
+    .catch((err) => {
+        console.warn(err);
+    })
+    .finally(()=>{
+        console.log('Конец');
+    })
+})
+// google end
+*/
 bot.command('start', async ctx => {
    await bot.telegram.sendMessage(ctx.chat.id, '\u{1F3E3}  Вас вітає бот ЦПМСД Житомира',
     {
@@ -31,7 +67,29 @@ bot.command('start', async ctx => {
         }
     })
 })
-bot.hears('\u{1F3E5} Опитування', (ctx) => ctx.reply('Тут буде опитування'));
+
+
+
+bot.hears('\u{1F3E5} Опитування', (ctx) => ctx.sendMessage('введіть текст', {
+    reply_markup: {
+        inline_keyboard: [
+           [
+                {text:'\u{2139}   Про нас' , callback_data: 'oputyvan'}
+            ],
+        ]
+    }
+}));
+
+bot.action('oputyvan', async ctx => {
+if (ctx.text === true){
+    await bot.telegram.reply(ctx.chat.id, `message: ${ctx.message}`)
+} else {
+    await bot.telegram.reply(ctx.chat.id, `ввдіть текст`)
+}
+
+})
+
+
 
 
 bot.hears('\u{2139}   Про нас', (ctx) => ctx.replyWithHTML(text.onas));
@@ -47,8 +105,6 @@ bot.hears('\u{1F4DD}  Запис на прийом', (ctx) => ctx.replyWithHTML(
     }
 }));
 
-
-bot.hears('\u{1F3E5} Амбулаторії', (ctx) => ctx.replyWithHTML('Введіть номер амбулаторії, наприклад: 01'));
 bot.hears('\u{260E}  Сайт', (ctx) => ctx.reply('Посилання на наш сайт \u{2B07}',{
     reply_markup: {
         inline_keyboard: [
@@ -131,7 +187,7 @@ function btnAdder(name, text) {
 btnAdder('sait', text.sait)
 btnAdder('contacts', text.contacts)
 btnAdder('zapus', text.zapus)
-btnAdder('button', text.button)
+// btnAdder('button', text.button)
 
 
 
