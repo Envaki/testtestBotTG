@@ -2,6 +2,7 @@ const { Telegraf, Markup, Scenes, session } = require('telegraf');
 require('dotenv').config()
 
 const text = require('./const');
+const oput = require('./oput');
 
 const bot = new Telegraf('5869058937:AAH3kWPtduDnGYMHn6seheAUA4byi1UvWm4');
 
@@ -46,14 +47,14 @@ document.querySelector('#zakazform').addEventListener('submit', function (e) {
 })
 // google end
 */
-const stage = new Scenes.Stage([text.oputyvannya])
+const stage = new Scenes.Stage([oput])
 
 bot.use(session())
 bot.use(stage.middleware())
 
 
 
-bot.hears('Опитування', ctx => ctx.scene.enter('oputyvannya'))
+bot.hears('Опитування', ctx => ctx.scene.enter('oput'))
 
 bot.command('start', async ctx => {
    // await ctx.sendMessage(ctx.chat.id, '\u{1F3E3}  Вас вітає бот ЦПМСД Житомира')
