@@ -38,7 +38,6 @@ startStep.on("text", async (ctx) => {
 
         await ctx.replyWithHTML('Задоволеність від 1 до 10')
         return ctx.wizard.next()
-
     } catch(e) {
         console.log(e)
     }
@@ -48,8 +47,11 @@ const titleStep = new Composer()
 titleStep.on("text", async (ctx) => {
     try {
         ctx.wizard.state.data.title = ctx.message.text
-
-        await ctx.replyWithHTML('Укажіть ваш вік')
+        await ctx.sendMessage('Ви задоволені?', Markup.inlineKeyboard([
+            [
+            Markup.button.callback('Так','yesButton'),Markup.button.callback('Ні','noButton')
+        ]
+    ]))
         return ctx.wizard.next()
 
     } catch(e) {
@@ -57,7 +59,50 @@ titleStep.on("text", async (ctx) => {
     }
 })
 
-const oputyvannya = new Scenes.WizardScene('oputyvannya', startStep, titleStep)
+const whyStep = new Composer()
+whyStep.on("text", async (ctx) => {
+    try {
+        ctx.wizard.state.data.why = ctx.message.text
+        await ctx.sendMessage('але навіщо?', Markup.inlineKeyboard([
+            [
+            Markup.button.callback('Так','yesButt'),Markup.button.callback('Ні','noButt')
+        ]
+    ]))
+        return ctx.wizard.next()
+
+    } catch(e) {
+        console.log(e)
+    }
+})
+whyStep.action('yesButton', async (ctx) => {
+    ctx.wizard.state.data.why = 'Так'
+
+    await ctx.answerCbQuery();
+    await ctx.replyWithHTML('ok \u{1F603}');
+
+    return ctx.wizard.next()
+})
+const prodStep = new Composer()
+prodStep.on("text", async (ctx) => {
+    try {
+        ctx.wizard.state.prod = 'ok \u{1F603}'
+        
+        await ctx.replyWithHTML('продовжуйте \n опишіть вашу задоволеність')
+        return ctx.wizard.next()
+    } catch(e) {
+        console.log(e)
+    }
+})
+
+whyStep.action('noButton', async (ctx) => {
+    ctx.wizard.state.data.why = 'Ні'
+
+    await ctx.answerCbQuery();
+    await ctx.replyWithHTML('Абидня, допобачення \u{1F603}');
+
+    return ctx.scene.leave()
+})
+const oputyvannya = new Scenes.WizardScene('oputyvannya', startStep, titleStep, whyStep, prodStep)
 
 module.exports.oputyvannya = oputyvannya
 

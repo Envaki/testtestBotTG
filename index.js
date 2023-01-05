@@ -81,29 +81,6 @@ bot.command('start', async ctx => {
 })
 
 
-
-bot.hears('\u{1F3E5} Опитування', (ctx) => ctx.sendMessage('введіть текст', {
-    reply_markup: {
-        inline_keyboard: [
-           [
-                {text:'\u{2139}   Про нас' , callback_data: 'oputyvan'}
-            ],
-        ]
-    }
-}));
-
-bot.action('oputyvan', async ctx => {
-if (ctx.text === true){
-    await bot.telegram.reply(ctx.chat.id, `message: ${ctx.message}`)
-} else {
-    await bot.telegram.reply(ctx.chat.id, `ввдіть текст`)
-}
-
-})
-
-
-
-
 bot.hears('\u{2139}   Про нас', (ctx) => ctx.replyWithHTML(text.onas));
 bot.hears('\u{1F404}  Контакти', (ctx) => ctx.replyWithHTML(text.contacts));
 bot.hears('\u{1F608}  Просто кнопка', (ctx) => ctx.replyWithHTML(text.button));
