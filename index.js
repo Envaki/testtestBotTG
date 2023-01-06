@@ -1,6 +1,6 @@
 const { Telegraf, Markup, Scenes, session } = require('telegraf');
 require('dotenv').config()
-
+const axios = require('axios');
 const text = require('./const');
 const oput = require('./oput');
 
@@ -106,7 +106,6 @@ bot.hears('\u{260E}  Сайт', (ctx) => ctx.reply('Посилання на на
 }
 ));
 
-bot.hears('1',(ctx) => ctx.reply(text.amb[0]));
 bot.hears('До головного меню', async ctx => {
     try {
         await bot.telegram.sendMessage(ctx.chat.id, '\u{1F3E3}  Вас вітає бот ЦПМСД Житомира',
@@ -133,6 +132,7 @@ bot.hears('До головного меню', async ctx => {
     }
 })
 bot.on('message', async ctx => {
+    /*
         await ctx.reply('я тебе не розумію, скористайся меню \u{1F61F}', {
             reply_markup: {
                 keyboard: [
@@ -150,7 +150,9 @@ bot.on('message', async ctx => {
                     ]
                 ]
             }
-        })
+        }) */
+        const chatId = '-1001893740855'
+      await ctx.sendMessage(chatId, `Ти написав мені: ${ctx.message.text}`)
     });
 
 function btnAdder(name, text) {
@@ -201,8 +203,6 @@ bot.action('about', async ctx => {
         console.error(e)
     }
 })
-// send email 
-
 
 
 
