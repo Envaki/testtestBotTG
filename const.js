@@ -2,9 +2,6 @@ const commands = `
 /start - Перезавантажити бота
 /help - допомога
 `
-const sait = `
-Відвідайте наш сайт: <a href="envaki.github.io">Сайт</a>
-`
 const onas = `
 Комунальне підприємство «Центр первинної медико-санітарної допомоги» Житомирської міської ради створено рішенням Житомирської міської ради від 18.12.2017 №855 для надання первинної медичної допомоги.
 
@@ -27,7 +24,6 @@ const button = `
 `
 
 module.exports.commands = commands
-module.exports.sait = sait
 module.exports.onas = onas
 module.exports.zapus = zapus
 module.exports.contacts = contacts
