@@ -13,6 +13,17 @@ bot.use(stage.middleware())
 
 bot.hears('\u{1F3E5} Свиня', ctx => ctx.scene.enter('oput'))
 
+bot.hears('опитування', ctx => ctx.sendMessage('Опитування', {
+    reply_markup: {
+        keyboard: [
+           [
+                {text:'Опитування123'},
+                {text:'\u{1F3E5} Свиня'},
+            ]
+        ]
+    }
+}))
+
 bot.command('start', async ctx => {
     try {
         await bot.telegram.sendMessage(ctx.chat.id, '\u{1F3E3}  Вас вітає бот ЦПМСД Житомира',
@@ -26,7 +37,8 @@ bot.command('start', async ctx => {
                     ],
                     [
                         {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'},
-                        {text:'\u{1F3E5} Свиня'}   
+                       // {text:'\u{1F437} Свиня'}   
+                       {text:'опитування'} 
                     ],
                     [
                         {text:'\u{1F608} Просто кнопка', callback_data: 'button'}
@@ -101,7 +113,7 @@ bot.on('message', async ctx => {
                     ],
                     [
                         {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'},
-                        {text:'\u{1F3E5} Свиня'}   
+                        {text:'\u{1F437} Свиня'}   
                     ],
                     [
                         {text:'\u{1F608}Просто кнопка', callback_data: 'button'}

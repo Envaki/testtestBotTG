@@ -25,7 +25,9 @@ const tittleStep = new Composer()
 tittleStep.on('text', async (ctx) => {
     try {
         ctx.wizard.state.data.title = ctx.message.text
-
+        if (ctx.wizard.state.data.title==='/start') {
+            return ctx.scene.leave()
+        }
         await ctx.replyWithHTML('В якому місті потребуєтсья. \n <i>Наприклад, Житомир</i>', Markup.inlineKeyboard([
             [Markup.button.callback('Не важливо', 'remote')]
         ]))
@@ -38,7 +40,9 @@ const cityStep = new Composer()
 cityStep.on('text', async (ctx) => {
     try {
         ctx.wizard.state.data.city = ctx.message.text
-
+        if (ctx.wizard.state.data.city==='/start') {
+            return ctx.scene.leave()
+        }
         await ctx.replyWithHTML('Вкажіть плату.\n <i>Наприклад, до 1млн але не більше 1млн</i>')
         return ctx.wizard.next()
     } catch (e) {
@@ -48,6 +52,9 @@ cityStep.on('text', async (ctx) => {
 cityStep.action('remote', async (ctx) => {
     try {
         ctx.wizard.state.data.city = 'Не важливо'
+        if (ctx.wizard.state.data.city==='/start') {
+            return ctx.scene.leave()
+        }
         await ctx.answerCbQuery()
         await ctx.replyWithHTML('Вкажіть плату.\n <i>Наприклад, до 1млн але не більше 1млн</i>')
         return ctx.wizard.next()
@@ -59,7 +66,9 @@ const priceStep = new Composer()
 priceStep.on('text', async (ctx) => {
     try {
         ctx.wizard.state.data.price = ctx.message.text
-
+        if (ctx.wizard.state.data.price==='/start') {
+            return ctx.scene.leave()
+        }
         await ctx.replyWithHTML('Чи потрібен досвід у свиноти? вкажіть який.\n <i>Наприклад, від 1 року свинства</i>', Markup.inlineKeyboard([
             [Markup.button.callback('Без досвіду', 'no-experiens')]
         ]))
@@ -73,7 +82,9 @@ const expStep = new Composer()
 expStep.on('text', async (ctx) => {
     try {
         ctx.wizard.state.data.exp = ctx.message.text
-
+        if (ctx.wizard.state.data.exp==='/start') {
+            return ctx.scene.leave()
+        }
         await ctx.replyWithHTML('Які обовязки потрібно виконувати?\n <i>Наприклад, жирувати/біситись з жиру</i>')
         return ctx.wizard.next()
     } catch (e) {
@@ -84,6 +95,9 @@ expStep.on('text', async (ctx) => {
 expStep.action('no-experiens', async (ctx) => {
     try {
         ctx.wizard.state.data.exp = 'Без досвіду'
+        if (ctx.wizard.state.data.exp==='/start') {
+            return ctx.scene.leave()
+        }
         await ctx.answerCbQuery()
         await ctx.replyWithHTML('Які обовязки потрібно виконувати?\n <i>Наприклад, жирувати/біситись з жиру</i>')
         return ctx.wizard.next()
@@ -96,6 +110,9 @@ const dutyStep = new Composer()
 dutyStep.on('text', async (ctx) => {
     try {
         ctx.wizard.state.data.duty = ctx.message.text
+        if (ctx.wizard.state.data.duty==='/start') {
+            return ctx.scene.leave()
+        }
 
         await ctx.replyWithHTML('Вкажіть вимоги до свині:?\n <i>Наприклад, закінчення Філологічного</i>')
         return ctx.wizard.next()
@@ -108,6 +125,9 @@ const requStep = new Composer()
 requStep.on('text', async (ctx) => {
     try {
         ctx.wizard.state.data.requ = ctx.message.text
+        if (ctx.wizard.state.data.requ==='/start') {
+            return ctx.scene.leave()
+        }
 
         await ctx.replyWithHTML('Вкажіть умови в яких ви будете тримати свиню:?\n <i>Наприклад, говно сарай</i>')
         return ctx.wizard.next()
