@@ -19,6 +19,8 @@ bot.hears('опитування', ctx => ctx.sendMessage('Виберіть оп�
            [
                 {text:'тест опитування'},
                 {text:'\u{1F3E5} Свиня'},
+            ], [
+                {text:'Назад'}
             ]
         ]
     }
@@ -77,7 +79,7 @@ bot.hears('\u{260E}  Сайт', (ctx) => ctx.reply('Посилання на на
 }
 ));
 
-bot.hears('До головного меню', async ctx => {
+bot.hears('Назад', async ctx => {
     try {
         await bot.telegram.sendMessage(ctx.chat.id, '\u{1F3E3}  Вас вітає бот ЦПМСД Житомира',
         { 
@@ -90,7 +92,7 @@ bot.hears('До головного меню', async ctx => {
                     ],
                     [
                         {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'},
-                        {text:'\u{1F3E5} Свиня'}   
+                        {text:'опитування'}   
                     ],
                     [
                         {text:'\u{1F608}Просто кнопка', callback_data: 'button'}
