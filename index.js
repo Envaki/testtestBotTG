@@ -13,11 +13,11 @@ bot.use(stage.middleware())
 
 bot.hears('\u{1F3E5} Свиня', ctx => ctx.scene.enter('oput'))
 
-bot.hears('опитування', ctx => ctx.sendMessage('Опитування', {
+bot.hears('опитування', ctx => ctx.sendMessage('Виберіть опитування', {
     reply_markup: {
         keyboard: [
            [
-                {text:'Опитування123'},
+                {text:'тест опитування'},
                 {text:'\u{1F3E5} Свиня'},
             ]
         ]
@@ -102,6 +102,7 @@ bot.hears('До головного меню', async ctx => {
         console.error(e)
     }
 })
+
 bot.on('message', async ctx => {
         await ctx.reply('я тебе не розумію, скористайся меню \u{1F61F}', {
             reply_markup: {
@@ -113,7 +114,7 @@ bot.on('message', async ctx => {
                     ],
                     [
                         {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'},
-                        {text:'\u{1F437} Свиня'}   
+                        {text:'опитування'}   
                     ],
                     [
                         {text:'\u{1F608}Просто кнопка', callback_data: 'button'}
@@ -148,8 +149,6 @@ btnAdder('sait', text.sait)
 btnAdder('contacts', text.contacts)
 btnAdder('zapus', text.zapus)
 btnAdder('button', text.button)
-
-
 
 
 
