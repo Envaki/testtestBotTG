@@ -13,7 +13,7 @@ bot.use(stage.middleware())
 
 bot.hears('\u{1F3E5} Свиня', ctx => ctx.scene.enter('oput'))
 
-bot.hears('опитування', ctx => ctx.sendMessage('Виберіть опитування', {
+bot.hears('\u{270F} опитування', ctx => ctx.sendMessage('Виберіть опитування', {
     reply_markup: {
         keyboard: [
            [
@@ -26,33 +26,6 @@ bot.hears('опитування', ctx => ctx.sendMessage('Виберіть оп�
     }
 }))
 
-bot.command('start', async ctx => {
-    try {
-        await bot.telegram.sendMessage(ctx.chat.id, '\u{1F3E3}  Вас вітає бот ЦПМСД Житомира',
-        { 
-            reply_markup: {
-                keyboard: [
-                   [
-                        {text:'\u{2139}   Про нас'},
-                        {text:' \u{260E}  Сайт', url: 'envaki.github.io'},
-                        {text:'\u{1F404}  Контакти', callback_data: 'contacts'} 
-                    ],
-                    [
-                        {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'},
-                       // {text:'\u{1F437} Свиня'}   
-                       {text:'опитування'} 
-                    ],
-                    [
-                        {text:'\u{1F608} Просто кнопка', callback_data: 'button'}
-                    ]
-                ]
-            }
-    })
-    } catch (e) {
-        console.error(e)
-    }
-})
-    
 
 bot.hears('\u{2139}   Про нас', (ctx) => ctx.replyWithHTML(text.onas));
 bot.hears('\u{1F404}  Контакти', (ctx) => ctx.replyWithHTML(text.contacts));
@@ -92,10 +65,38 @@ bot.hears('Назад', async ctx => {
                     ],
                     [
                         {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'},
-                        {text:'опитування'}   
+                        {text:'\u{270F} опитування'}   
                     ],
                     [
-                        {text:'\u{1F608}Просто кнопка', callback_data: 'button'}
+                        {text:'\u{1F608} Просто кнопка', callback_data: 'button'}
+                    ]
+                ]
+            }
+    })
+    } catch (e) {
+        console.error(e)
+    }
+})
+
+
+bot.command('start', async ctx => {
+    try {
+        await bot.telegram.sendMessage(ctx.chat.id, '\u{1F3E3}  Вас вітає бот ЦПМСД Житомира',
+        { 
+            reply_markup: {
+                keyboard: [
+                   [
+                        {text:'\u{2139}   Про нас'},
+                        {text:' \u{260E}  Сайт', url: 'envaki.github.io'},
+                        {text:'\u{1F404}  Контакти', callback_data: 'contacts'} 
+                    ],
+                    [
+                        {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'},
+                       // {text:'\u{1F437} Свиня'}   
+                       {text:'\u{270F} опитування'} 
+                    ],
+                    [
+                        {text:'\u{1F608} Просто кнопка'}
                     ]
                 ]
             }
@@ -116,10 +117,10 @@ bot.on('message', async ctx => {
                     ],
                     [
                         {text:'\u{1F4DD}  Запис на прийом', url: 'https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html'},
-                        {text:'опитування'}   
+                        {text:'\u{270F} опитування'}   
                     ],
                     [
-                        {text:'\u{1F608}Просто кнопка', callback_data: 'button'}
+                        {text:'\u{1F608} Просто кнопка'}
                     ]
                 ]
             }
