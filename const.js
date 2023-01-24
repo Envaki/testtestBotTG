@@ -15,6 +15,8 @@ const onas = `
 const contacts = `\u{1F3E5}: майдан Визволення, буд. 1, м. Житомир, Житомирська область, 10020
 \u{1F4E7}: mail@likar.center
 \u{260E}: 0 (800) 35 04 36
+
+<a href="https://likar.center/">Наш сайт</a>
 `
 const zapus = `
 <a href="https://portal-doctor.eleks.com/web/ml2zhytomyr/registration.html">Запис на прийом</a>

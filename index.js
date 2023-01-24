@@ -2,23 +2,26 @@ const { Telegraf, Markup, Scenes, session } = require('telegraf');
 require('dotenv').config()
 const text = require('./const');
 const oput = require('./oput');
+const anonim = require('./anonim');
 
 const bot = new Telegraf('5869058937:AAH3kWPtduDnGYMHn6seheAUA4byi1UvWm4');
 
-const stage = new Scenes.Stage([oput])
+const stage = new Scenes.Stage([oput, anonim])
+
 
 bot.use(session())
 bot.use(stage.middleware())
 
 
-bot.hears('\u{1F3E5} Свиня', ctx => ctx.scene.enter('oput'))
+bot.hears('\u{1F3E5} опитування', ctx => ctx.scene.enter('oput'))
+bot.hears('тест опитування', ctx => ctx.scene.enter('anonim'))
 
 bot.hears('\u{270F} опитування', ctx => ctx.sendMessage('Виберіть опитування', {
     reply_markup: {
         keyboard: [
            [
                 {text:'тест опитування'},
-                {text:'\u{1F3E5} Свиня'},
+                {text:'\u{1F3E5} опитування'},
             ], [
                 {text:'Назад'}
             ]
@@ -41,26 +44,15 @@ bot.hears('\u{1F4DD}  Запис на прийом', (ctx) => ctx.replyWithHTML(
     }
 }));
 
-bot.hears('\u{260E}  Сайт', (ctx) => ctx.reply('Посилання на наш сайт \u{2B07}',{
-    reply_markup: {
-        inline_keyboard: [
-           [
-                {text:'Сайт ЦПМСД', url: 'envaki.github.io'}  
-            ]
-        ]
-    }
-}
-));
 
 bot.hears('Назад', async ctx => {
     try {
-        await bot.telegram.sendMessage(ctx.chat.id, '\u{1F3E3}  Вас вітає бот ЦПМСД Житомира',
+        await bot.telegram.sendMessage(ctx.chat.id, '\u{1F3E3}  Головне меню',
         { 
             reply_markup: {
                 keyboard: [
                    [
                         {text:'\u{2139}   Про нас'},
-                        {text:' \u{260E}  Сайт', url: 'envaki.github.io'},
                         {text:'\u{1F404}  Контакти', callback_data: 'contacts'} 
                     ],
                     [
@@ -87,7 +79,6 @@ bot.command('start', async ctx => {
                 keyboard: [
                    [
                         {text:'\u{2139}   Про нас'},
-                        {text:' \u{260E}  Сайт', url: 'envaki.github.io'},
                         {text:'\u{1F404}  Контакти', callback_data: 'contacts'} 
                     ],
                     [
@@ -112,7 +103,6 @@ bot.on('message', async ctx => {
                 keyboard: [
                    [
                         {text:'\u{2139}   Про нас'},
-                        {text:' \u{260E}  Сайт', url: 'envaki.github.io'},
                         {text:'\u{1F404}  Контакти', callback_data: 'contacts'} 
                     ],
                     [
@@ -126,34 +116,6 @@ bot.on('message', async ctx => {
             }
         })
 });
-
-function btnAdder(name, text) {
-    bot.action(name, async(ctx)=> {
-        try {
-            await ctx.answerCbQuery();
-            await  ctx.replyWithHTML(text)
-            await  bot.telegram.sendMessage(ctx.chat.id, 'Повернутися',
-            { 
-                reply_markup: {
-                    keyboard: [
-                        [
-                            {text:'До головного меню', callback_data: 'menu'},
-                        ]
-                    ]
-                }
-        })
-        } catch(e) {
-            console.error(e)
-        }
-    })
-}
-
-btnAdder('sait', text.sait)
-btnAdder('contacts', text.contacts)
-btnAdder('zapus', text.zapus)
-btnAdder('button', text.button)
-
-
 
 bot.action('about', async ctx => {
     try {
